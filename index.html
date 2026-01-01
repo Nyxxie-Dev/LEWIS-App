@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LEWIS - Local Everything Web Interactive Suite</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="sections/cad/color-picker.css">
+    <link rel="stylesheet" href="sections/cad/gradient-generator.css">
+    <link rel="stylesheet" href="sections/cad/palette-generator.css">
 </head>
 <body>
     <div class="container">
@@ -44,7 +47,7 @@
                             <div id="sb-pointer" class="pointer"></div>
                             
                             <!-- Hue slider -->
-                            <canvas id="hue-canvas" width="30" height="250"></canvas>
+                            <canvas id="hue-canvas" width="15" height="250"></canvas>
                             <div id="hue-pointer" class="pointer hue-pointer"></div>
                         </div>
                         
@@ -79,6 +82,76 @@
                                 <button onclick="copyFormat('format-cmyk')">Copy</button>
                             </div>
                         </div>
+                    </div>
+
+                                        <!-- Gradient Generator Tool -->
+                    <div class="tool-card" id="gradient-tool">
+                        <h3>Gradient Generator</h3>
+                        
+                        <div class="gradient-controls">
+                            <label>
+                                Type:
+                                <select id="gradient-type">
+                                    <option value="linear">Linear</option>
+                                    <option value="radial">Radial</option>
+                                </select>
+                            </label>
+                            
+                            <label>
+                                Angle:
+                                <input type="range" id="gradient-angle" min="0" max="360" value="90">
+                                <span id="angle-value">90°</span>
+                            </label>
+                            
+                            <div class="preset-angles">
+                                <button data-angle="0">→ Right</button>
+                                <button data-angle="45">↘ Diagonal</button>
+                                <button data-angle="90">↑ Top</button>
+                                <button data-angle="135">↖ Diagonal</button>
+                                <button data-angle="180">← Left</button>
+                                <button data-angle="270">↓ Bottom</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Preview -->
+                        <div id="gradient-preview" class="gradient-preview"></div>
+                        
+                        <!-- Color stops bar -->
+                        <div class="stops-bar" id="stops-bar">
+                            <!-- Stops will be added here dynamically -->
+                        </div>
+                        
+                        <!-- Current color picker (reuses our advanced picker logic indirectly) -->
+                        <div class="current-stop">
+                            <input type="color" id="stop-color-picker" value="#ff0000">
+                            <button id="add-stop">Add Stop</button>
+                            <button id="copy-css">Copy CSS</button>
+                        </div>
+                        
+                        <!-- CSS output -->
+                        <textarea id="gradient-css" readonly placeholder="CSS will appear here..."></textarea>
+                    </div>
+                    
+                                        <!-- Palette Generator from Image Tool -->
+                    <div class="tool-card" id="palette-tool">
+                        <h3>Palette Generator from Image</h3>
+                        
+                        <div class="image-upload-area" id="drop-area">
+                            <input type="file" id="image-input" accept="image/*" style="display:none;">
+                            <p>Drag & drop an image here or <span class="link" id="click-here">click to upload</span></p>
+                            <img id="uploaded-preview" class="uploaded-preview hidden" alt="Uploaded image preview">
+                        </div>
+                        
+                        <div id="palette-controls" class="hidden">
+                            <label>
+                                Number of colors:
+                                <input type="range" id="color-count" min="3" max="12" value="8">
+                                <span id="color-count-value">8</span>
+                            </label>
+                            <button id="generate-palette">Generate Palette</button>
+                        </div>
+                        
+                        <div id="palette-result" class="palette-result hidden"></div>
                     </div>
 
                     <!-- More CAD tools will go here in the future -->
@@ -121,6 +194,8 @@
     <!-- Tool-specific scripts -->
     <script src="sections/cad/random-color.js"></script>
     <script src="sections/cad/color-picker.js"></script>
+    <script src="sections/cad/gradient-generator.js"></script>
+    <script src="sections/cad/palette-generator.js"></script>
 
     <!-- Add more <script src="..."> lines here as we create new tools -->
 </body>
