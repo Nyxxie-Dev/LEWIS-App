@@ -1,0 +1,59 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEWIS - Local Everything Web Interactive Suite</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>LEWIS</h1>
+        <p>Local Everything Web Interactive Suite — All tools work offline</p>
+        <nav>
+            <button onclick="showSection('cad')">Color & Design (CAD)</button>
+            <button onclick="showSection('fam')">File & Media (FAM)</button>
+            <button onclick="showSection('aac')">Arts & Crafts (AAC)</button>
+            <button onclick="showSection('tac')">Text & Code (TAC)</button>
+            <button onclick="showSection('dau')">Developing & Utility (DAU)</button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="cad" class="section">
+            <h2>Color & Design Tools</h2>
+            <!-- Random Color Generator -->
+            <div class="tool">
+                <h3>Random Color Generator</h3>
+                <button id="random-color-btn">Generate Random Color</button>
+                <div id="color-preview" class="color-box"></div>
+                <input id="color-hex" type="text" readonly placeholder="HEX code appears here">
+                <button onclick="copyToClipboard('color-hex')">Copy HEX</button>
+            </div>
+            <!-- More CAD tools will go here later -->
+        </section>
+
+        <section id="fam" class="section hidden">
+            <h2>File & Media Tools</h2>
+            <p>Tools coming soon...</p>
+        </section>
+
+        <section id="aac" class="section hidden">
+            <h2>Arts & Crafts Tools</h2>
+            <p>Tools coming soon...</p>
+        </section>
+
+        <section id="tac" class="section hidden">
+            <h2>Text & Code Tools</h2>
+            <p>Tools coming soon...</p>
+        </section>
+
+        <section id="dau" class="section hidden">
+            <h2>Developing & Utility Tools</h2>
+            <p>Tools coming soon...</p>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
