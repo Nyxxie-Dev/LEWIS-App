@@ -1,0 +1,127 @@
+/* Color Harmony Generator - With Circle Diagrams */
+
+#color-harmony-card {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+
+#color-harmony-card h3 {
+    text-align: center;
+    color: #3498db;
+    font-size: 2.2em;
+    margin-bottom: 40px;
+}
+
+.harmony-picker {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+#base-color-input {
+    width: 120px;
+    height: 120px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.harmony-picker p {
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #555;
+}
+
+.harmony-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+}
+
+.harmony-type {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.harmony-type h4 {
+    margin: 0 0 30px;
+    color: #3498db;
+    font-size: 1.8em;
+}
+
+.harmony-diagram {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    margin: 0 auto 30px;
+}
+
+.color-wheel {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: conic-gradient(
+        red 0deg,
+        yellow 60deg,
+        lime 120deg,
+        cyan 180deg,
+        blue 240deg,
+        magenta 300deg,
+        red 360deg
+    );
+    opacity: 0.3;
+}
+
+.harmony-dots {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.harmony-dot {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 5px solid white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    transform: translate(-50%, -50%);
+}
+
+
+.swatches-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.swatch {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.swatch:hover {
+    transform: scale(1.1);
+}
+
+.swatch-hex {
+    margin-top: 12px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: #555;
+}
