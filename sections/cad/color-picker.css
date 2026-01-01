@@ -1,108 +1,143 @@
-/* Advanced Color Picker Specific Styles */
+/* Advanced Color Picker - Fresh LEWIS Style Remake */
 
-.picker-container {
+#color-picker-card {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+
+#color-picker-card h3 {
+    text-align: center;
+    color: #3498db;
+    font-size: 2.2em;
+    margin-bottom: 40px;
+}
+
+.picker-main {
     display: flex;
-    gap: 15px; /* Reduced gap to save horizontal space */
-    align-items: flex-start;
-    margin: 20px 0;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 50px;
+}
+
+.square-container {
     position: relative;
-    flex-wrap: wrap; /* Allows wrapping on small screens if needed */
 }
 
 #sb-canvas {
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    cursor: crosshair;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    border: 1px solid #ddd;
+}
+
+.hue-container {
+    position: relative;
 }
 
 #hue-canvas {
-    width: 18px;
-    height: 250px;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    cursor: ns-resize;
-    box-shadow: inset 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    border: 1px solid #ddd;
 }
 
 .pointer {
     position: absolute;
-    width: 20px;
-    height: 20px;
-    border: 3px solid white;
-    border-radius: 50%;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.5);
     pointer-events: none;
-    transform: translate(-50%, -50%);
     z-index: 10;
 }
 
-/* PERFECT centering for hue pointer */
-.hue-pointer {
-    left: 268px; /* Fine-tuned: 250 (sb-canvas) + 15 (reduced gap) + 9 (half of 18px) - tiny adjustment */
+.circle-pointer {
+    width: 30px;
+    height: 30px;
+    border: 4px solid white;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    transform: translate(-50%, -50%);
+}
+
+.triangle-pointer {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 22px solid white;
+    transform: translateX(-50%);
+    top: 32px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+
+.triangle-pointer::before {
+    content: '';
+    position: absolute;
+    top: -24px;
+    left: -15px;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 22px solid rgba(0,0,0,0.3);
 }
 
 .color-preview-big {
-    width: 100%;
+    width: 350px;
     height: 120px;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    margin: 20px 0 25px 0;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-.formats {
-    display: grid;
-    grid-template-columns: 1fr; /* Stack vertically instead of 2 columns */
-    gap: 12px;
-    margin-top: 10px;
-    width: 100%;
-}
-
-.formats div {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 15px;
-    flex-wrap: nowrap; /* Prevent wrapping inside rows */
-}
-
-.formats span {
-    min-width: 60px;
-    font-weight: bold;
-    color: #444;
-    flex-shrink: 0;
-}
-
-.formats input {
-    flex: 1;
-    padding: 12px 14px;
-    font-family: 'Courier New', monospace;
-    font-size: 16px;
-    background: #f8f9fa;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
     border: 1px solid #ddd;
-    border-radius: 6px;
-    min-width: 0; /* Allows flex shrinking */
-    max-width: 260px; /* Limits max width to prevent overflow */
 }
 
-.formats button {
-    padding: 12px 16px;
+.formats-row {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+}
+
+.format-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 130px;
+}
+
+.format-item span {
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.format-value {
+    background: #2c3e50;
+    color: white;
+    padding: 14px 20px;
+    border-radius: 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 17px;
+    min-width: 200px;
+    text-align: center;
+}
+
+.copy-btn {
+    margin-top: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.copy-btn:hover {
     background: #3498db;
     color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background 0.2s;
-    flex-shrink: 0;
-}
-
-.formats button:hover {
-    background: #2980b9;
-}
-
-/* Ensure no horizontal overflow in the tool card */
-#color-picker-tool {
-    overflow: hidden;
 }

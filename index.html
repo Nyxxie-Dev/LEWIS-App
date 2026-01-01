@@ -96,23 +96,51 @@
         </div>
     </div>
 
-    <!-- Advanced Color Picker -->
+    <!-- Advanced Color Picker (remade) -->
     <div id="color-picker-tool" class="hidden">
-        <div class="tool-card">
+        <div class="tool-card" id="color-picker-card">
             <h3>Advanced Color Picker</h3>
-            <div class="picker-container">
-                <canvas id="sb-canvas" width="250" height="250"></canvas>
-                <div id="sb-pointer" class="pointer"></div>
-                <canvas id="hue-canvas" width="18" height="250"></canvas>
-                <div id="hue-pointer" class="pointer"></div>
+            
+            <div class="picker-main">
+                <div class="square-container">
+                    <canvas id="sb-canvas" width="350" height="350"></canvas>
+                    <div id="sb-pointer" class="pointer circle-pointer"></div>
+                </div>
+                
+                <div class="hue-container">
+                    <canvas id="hue-canvas" width="350" height="28"></canvas>
+                    <div id="hue-pointer" class="pointer triangle-pointer"></div>
+                </div>
+                
+                <div id="color-preview-big" class="color-preview-big"></div>
             </div>
-            <div id="color-preview-big" class="color-preview-big"></div>
-            <div class="formats">
-                <div><span>HEX:</span><input id="format-hex" type="text" readonly><button onclick="copyFormat('format-hex')">Copy</button></div>
-                <div><span>RGB:</span><input id="format-rgb" type="text" readonly><button onclick="copyFormat('format-rgb')">Copy</button></div>
-                <div><span>HSL:</span><input id="format-hsl" type="text" readonly><button onclick="copyFormat('format-hsl')">Copy</button></div>
-                <div><span>HSV:</span><input id="format-hsv" type="text" readonly><button onclick="copyFormat('format-hsv')">Copy</button></div>
-                <div><span>CMYK:</span><input id="format-cmyk" type="text" readonly><button onclick="copyFormat('format-cmyk')">Copy</button></div>
+            
+            <div class="formats-row">
+                <div class="format-item">
+                    <span>HEX</span>
+                    <div class="format-value" id="format-hex">#4287F5</div>
+                    <button class="copy-btn" onclick="copyFormat('format-hex')">📋</button>
+                </div>
+                <div class="format-item">
+                    <span>RGB</span>
+                    <div class="format-value" id="format-rgb">rgb(66, 135, 245)</div>
+                    <button class="copy-btn" onclick="copyFormat('format-rgb')">📋</button>
+                </div>
+                <div class="format-item">
+                    <span>HSL</span>
+                    <div class="format-value" id="format-hsl">hsl(217°, 90%, 61%)</div>
+                    <button class="copy-btn" onclick="copyFormat('format-hsl')">📋</button>
+                </div>
+                <div class="format-item">
+                    <span>HSV</span>
+                    <div class="format-value" id="format-hsv">hsv(217°, 73%, 96%)</div>
+                    <button class="copy-btn" onclick="copyFormat('format-hsv')">📋</button>
+                </div>
+                <div class="format-item">
+                    <span>CMYK</span>
+                    <div class="format-value" id="format-cmyk">cmyk(73%, 45%, 0%, 4%)</div>
+                    <button class="copy-btn" onclick="copyFormat('format-cmyk')">📋</button>
+                </div>
             </div>
         </div>
     </div>

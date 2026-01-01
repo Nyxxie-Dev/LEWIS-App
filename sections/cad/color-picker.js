@@ -1,8 +1,8 @@
-// Advanced Color Picker with 2D SB square + Hue slider + multiple formats
+// Advanced Color Picker - Remade from scratch
 
-let h = 0;      // Hue: 0-360
-let s = 100;    // Saturation: 0-100
-let l = 50;     // Lightness: 0-100
+let h = 217;    // starting blue like the example
+let s = 90;
+let l = 61;
 
 const sbCanvas = document.getElementById('sb-canvas');
 const sbCtx = sbCanvas.getContext('2d');
@@ -12,7 +12,7 @@ const sbPointer = document.getElementById('sb-pointer');
 const huePointer = document.getElementById('hue-pointer');
 const previewBig = document.getElementById('color-preview-big');
 
-// Helper: HSL to RGB
+// HSL to RGB
 function hslToRgb(h, s, l) {
     h /= 360; s /= 100; l /= 100;
     let r, g, b;
@@ -38,10 +38,10 @@ function hslToRgb(h, s, l) {
 
 // RGB to HEX
 function rgbToHex(r, g, b) {
-    return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
+    return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('').toUpperCase();
 }
 
-// RGB to CMYK (percentages)
+// RGB to CMYK
 function rgbToCmyk(r, g, b) {
     if (r === 0 && g === 0 && b === 0) return [0, 0, 0, 100];
     let c = 1 - r / 255;
@@ -63,7 +63,7 @@ function hslToHsv(h, s, l) {
     return [h, Math.round(sv * 100), Math.round(v * 100)];
 }
 
-// Update all displays
+// Update everything
 function updateColor() {
     const [r, g, b] = hslToRgb(h, s, l);
     const hex = rgbToHex(r, g, b);
@@ -72,17 +72,18 @@ function updateColor() {
 
     previewBig.style.backgroundColor = hex;
 
-    document.getElementById('format-hex').value = hex;
-    document.getElementById('format-rgb').value = `rgb(${r}, ${g}, ${b})`;
-    document.getElementById('format-hsl').value = `hsl(${h}, ${s}%, ${l}%)`;
-    document.getElementById('format-hsv').value = `hsv(${hv}, ${sv}%, ${vv}%)`;
-    document.getElementById('format-cmyk').value = `cmyk(${c}%, ${m}%, ${y}%, ${k}%)`;
+    document.getElementById('format-hex').textContent = hex;
+    document.getElementById('format-rgb').textContent = `rgb(${r}, ${g}, ${b})`;
+    document.getElementById('format-hsl').textContent = `hsl(${h}, ${s}%, ${l}%)`;
+    document.getElementById('format-hsv').textContent = `hsv(${hv}, ${sv}%, ${vv}%)`;
+    document.getElementById('format-cmyk').textContent = `cmyk(${c}%, ${m}%, ${y}%, ${k}%)`;
 
     drawSbSquare();
     drawHueBar();
+    updatePointers();
 }
 
-// Draw Saturation/Lightness square
+// Draw SB square
 function drawSbSquare() {
     const size = sbCanvas.width;
     for (let x = 0; x < size; x++) {
@@ -96,74 +97,73 @@ function drawSbSquare() {
     }
 }
 
-// Draw Hue bar
+// Draw hue bar
 function drawHueBar() {
-    const size = hueCanvas.height;
-    for (let y = 0; y < size; y++) {
-        const hue = (y / size) * 360;
+    const w = hueCanvas.width;
+    const h = hueCanvas.height;
+    for (let x = 0; x < w; x++) {
+        const hue = (x / w) * 360;
         hueCtx.fillStyle = `hsl(${hue}, 100%, 50%)`;
-        hueCtx.fillRect(0, y, hueCanvas.width, 1);
+        hueCtx.fillRect(x, 0, 1, h);
     }
 }
 
-// Position pointers
+// Pointers
 function updatePointers() {
     sbPointer.style.left = (s / 100 * sbCanvas.width) + 'px';
     sbPointer.style.top = ((100 - l) / 100 * sbCanvas.height) + 'px';
 
-    huePointer.style.top = (h / 360 * hueCanvas.height) + 'px';
+    huePointer.style.left = (h / 360 * hueCanvas.width) + 'px';
 }
 
-// Copy function for formats
-function copyFormat(id) {
-    const input = document.getElementById(id);
-    input.select();
-    input.setSelectionRange(0, 99999);
-    document.execCommand('copy');
-    alert('Copied: ' + input.value);
-}
-
-// Mouse handling for SB canvas
+// Mouse handlers
 let sbDragging = false;
+let hueDragging = false;
+
 sbCanvas.addEventListener('mousedown', (e) => {
     sbDragging = true;
     updateFromSb(e);
 });
-document.addEventListener('mousemove', (e) => {
-    if (sbDragging) updateFromSb(e);
-});
-document.addEventListener('mouseup', () => sbDragging = false);
 
-function updateFromSb(e) {
-    const rect = sbCanvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    s = Math.round(Math.max(0, Math.min(100, (x / rect.width) * 100)));
-    l = Math.round(Math.max(0, Math.min(100, 100 - (y / rect.height) * 100)));
-    updateColor();
-    updatePointers();
-}
-
-// Mouse handling for Hue canvas
-let hueDragging = false;
 hueCanvas.addEventListener('mousedown', (e) => {
     hueDragging = true;
     updateFromHue(e);
 });
+
 document.addEventListener('mousemove', (e) => {
+    if (sbDragging) updateFromSb(e);
     if (hueDragging) updateFromHue(e);
 });
-document.addEventListener('mouseup', () => hueDragging = false);
+
+document.addEventListener('mouseup', () => {
+    sbDragging = false;
+    hueDragging = false;
+});
+
+function updateFromSb(e) {
+    const rect = sbCanvas.getBoundingClientRect();
+    const x = Math.max(0, Math.min(rect.width, e.clientX - rect.left));
+    const y = Math.max(0, Math.min(rect.height, e.clientY - rect.top));
+    s = Math.round((x / rect.width) * 100);
+    l = Math.round(100 - (y / rect.height) * 100);
+    updateColor();
+}
 
 function updateFromHue(e) {
     const rect = hueCanvas.getBoundingClientRect();
-    const y = e.clientY - rect.top;
-    h = Math.round(Math.max(0, Math.min(360, (y / rect.height) * 360)));
+    const x = Math.max(0, Math.min(rect.width, e.clientX - rect.left));
+    h = Math.round((x / rect.width) * 360);
     updateColor();
-    updatePointers();
 }
 
-// Initial draw
+// Copy
+function copyFormat(id) {
+    const text = document.getElementById(id).textContent;
+    navigator.clipboard.writeText(text);
+    alert('Copied: ' + text);
+}
+
+// Init
 drawHueBar();
 drawSbSquare();
 updatePointers();
