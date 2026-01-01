@@ -24,15 +24,64 @@
             <section id="cad" class="section">
                 <h2>Color & Design Tools</h2>
                 <div class="tools-grid">
+
                     <!-- Random Color Generator Tool -->
                     <div class="tool-card" id="random-color-tool">
                         <h3>Random Color Generator</h3>
                         <button id="random-color-btn">Generate</button>
                         <div id="color-preview" class="color-box"></div>
                         <input id="color-hex" type="text" readonly placeholder="HEX code">
-                        <button onclick="copyToClipboard('color-hex')">Copy</button>
+                        <button onclick="copyToClipboard('color-hex')">Copy HEX</button>
                     </div>
-                    <!-- Add more tool-cards here as we build -->
+
+                    <!-- Advanced Color Picker Tool -->
+                    <div class="tool-card" id="color-picker-tool">
+                        <h3>Advanced Color Picker</h3>
+                        
+                        <div class="picker-container">
+                            <!-- 2D Saturation/Lightness square -->
+                            <canvas id="sb-canvas" width="250" height="250"></canvas>
+                            <div id="sb-pointer" class="pointer"></div>
+                            
+                            <!-- Hue slider -->
+                            <canvas id="hue-canvas" width="30" height="250"></canvas>
+                            <div id="hue-pointer" class="pointer hue-pointer"></div>
+                        </div>
+                        
+                        <!-- Big color preview -->
+                        <div id="color-preview-big" class="color-preview-big"></div>
+                        
+                        <!-- Format outputs and copy buttons -->
+                        <div class="formats">
+                            <div>
+                                <span>HEX:</span>
+                                <input id="format-hex" type="text" readonly>
+                                <button onclick="copyFormat('format-hex')">Copy</button>
+                            </div>
+                            <div>
+                                <span>RGB:</span>
+                                <input id="format-rgb" type="text" readonly>
+                                <button onclick="copyFormat('format-rgb')">Copy</button>
+                            </div>
+                            <div>
+                                <span>HSL:</span>
+                                <input id="format-hsl" type="text" readonly>
+                                <button onclick="copyFormat('format-hsl')">Copy</button>
+                            </div>
+                            <div>
+                                <span>HSV:</span>
+                                <input id="format-hsv" type="text" readonly>
+                                <button onclick="copyFormat('format-hsv')">Copy</button>
+                            </div>
+                            <div>
+                                <span>CMYK:</span>
+                                <input id="format-cmyk" type="text" readonly>
+                                <button onclick="copyFormat('format-cmyk')">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- More CAD tools will go here in the future -->
                 </div>
             </section>
 
@@ -66,9 +115,13 @@
         </main>
     </div>
 
+    <!-- Core app logic (section switching + shared copy function) -->
     <script src="app.js"></script>
-    <!-- Load tool-specific scripts -->
+
+    <!-- Tool-specific scripts -->
     <script src="sections/cad/random-color.js"></script>
-    <!-- Add more <script src="sections/section/tool-name.js"></script> as we add tools -->
+    <script src="sections/cad/color-picker.js"></script>
+
+    <!-- Add more <script src="..."> lines here as we create new tools -->
 </body>
 </html>
