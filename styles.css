@@ -153,3 +153,55 @@ input[type="text"] {
         margin: 5px;
     }
 }
+
+/* Gallery Cards */
+.gallery-card {
+    cursor: pointer;
+    text-align: center;
+    padding: 30px 20px;
+    transition: all 0.3s;
+}
+
+.gallery-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.gallery-card .icon {
+    font-size: 60px;
+    margin-bottom: 15px;
+}
+
+.gallery-card h3 {
+    margin: 0;
+    font-size: 1.3em;
+    color: #3498db;
+}
+
+/* Tool View */
+#cad-tool-view {
+    padding: 20px 0;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #3498db;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.back-btn:hover {
+    background: #f0f8ff;
+}
+
+#tool-title {
+    margin-bottom: 30px;
+    color: #3498db;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+}

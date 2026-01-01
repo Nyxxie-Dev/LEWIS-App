@@ -1,4 +1,4 @@
-// Core app logic
+// Core app logic - FIXED version with proper tool display
 
 function showSection(id) {
     document.querySelectorAll('.section').forEach(sec => sec.classList.add('hidden'));
@@ -15,13 +15,33 @@ function showSection(id) {
 }
 
 // Tool navigation inside CAD
+let currentTool = null;
+
 function showTool(toolId) {
+    const content = document.getElementById('tool-content');
+    
+    // Move current tool back to its hidden container if switching
+    if (currentTool && currentTool !== toolId) {
+        const currentCard = content.querySelector('.tool-card');
+        if (currentCard) {
+            const originalContainer = document.getElementById(currentTool + '-tool');
+            if (originalContainer) {
+                originalContainer.appendChild(currentCard);
+            }
+        }
+    }
+    
+    // Clear content
+    content.innerHTML = '';
+
+    // Hide views
     document.getElementById('cad-gallery').classList.add('hidden');
     document.getElementById('cad-tool-view').classList.add('hidden');
 
     if (toolId === 'gallery') {
         document.getElementById('cad-gallery').classList.remove('hidden');
         document.getElementById('tool-title').textContent = '';
+        currentTool = null;
     } else {
         document.getElementById('cad-tool-view').classList.remove('hidden');
         
@@ -33,13 +53,14 @@ function showTool(toolId) {
         };
         document.getElementById('tool-title').textContent = titles[toolId] || 'Tool';
 
-        // Clone the hidden original tool into view
-        const original = document.getElementById(toolId + '-tool');
-        const content = document.getElementById('tool-content');
-        content.innerHTML = '';
-        if (original) {
-            content.appendChild(original.cloneNode(true));
+        // Move the tool card from hidden container to view
+        const originalContainer = document.getElementById(toolId + '-tool');
+        const toolCard = originalContainer.querySelector('.tool-card');
+        if (toolCard) {
+            content.appendChild(toolCard);
         }
+
+        currentTool = toolId;
     }
 }
 
@@ -59,7 +80,7 @@ document.getElementById('back-to-gallery').addEventListener('click', () => {
 
 // Shared copy functions
 function copyToClipboard(inputId) {
-    const input = document.getElementById(inputId);
+    const input = document.querySelector(`#${inputId}`); // querySelector because ID might be in cloned/moved content
     if (input) {
         input.select();
         input.setSelectionRange(0, 99999);
