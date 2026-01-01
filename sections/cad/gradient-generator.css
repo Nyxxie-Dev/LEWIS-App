@@ -1,0 +1,125 @@
+/* Gradient Generator Specific Styles */
+
+.gradient-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.gradient-controls label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+}
+
+#gradient-angle {
+    width: 200px;
+}
+
+#angle-value {
+    min-width: 40px;
+    font-family: monospace;
+}
+
+.preset-angles {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.preset-angles button {
+    padding: 10px 14px;
+    font-size: 14px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.preset-angles button:hover {
+    background: #2980b9;
+}
+
+.preset-angles.disabled button {
+    background: #95a5a6;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+#gradient-angle.disabled,
+#angle-value.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.gradient-preview {
+    width: 100%;
+    height: 300px;
+    border: 2px solid #ccc;
+    border-radius: 12px;
+    margin: 20px 0;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    background: linear-gradient(90deg, #ff0000, #0000ff);
+}
+
+.stops-bar {
+    position: relative;
+    height: 50px;
+    background: linear-gradient(to right, white, black);
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    margin: 20px 0;
+    cursor: crosshair;
+}
+
+.stop-marker {
+    position: absolute;
+    bottom: -10px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border: 3px solid #3498db;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    cursor: move;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.stop-marker.active {
+    border-color: #e74c3c;
+    border-width: 4px;
+    z-index: 20;
+}
+
+.current-stop {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 15px 0;
+    flex-wrap: wrap;
+}
+
+#stop-color-picker {
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#gradient-css {
+    width: 100%;
+    height: 120px;
+    padding: 12px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    resize: vertical;
+}
